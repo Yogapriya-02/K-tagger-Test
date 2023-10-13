@@ -1,101 +1,169 @@
 const xml_paths =[
 	{
-		Article_Title : [`//*[@class-name="ArtTitle"]`]
+		Article_Title : {
+			path1 : [`//title-group//article-title`],
+			path2 : [`//*[@class-name="AbsTitle"]`]
+		}
 	},
 	{
-		Abstract_Head : [`//*[@class-name = "AbsHead"]`]
+		Author : {
+			path1 : [`//contrib-group[1]//contrib`]
+		}
 	},
 	{
-		Abstract_Title : [`//*[@class-name="AbsTitle"]`]
+		Affiliation : {
+			path1 : [`//contrib-group[1]//aff`]
+		}
 	},
 	{
-		Abstract_Para : [`//*[@class-name="AbsPara"]`]
+		Corres_Author : {
+			path1 : [`//author-notes//corresp//name`]
+		}
 	},
 	{
-		References : [`//*[@class-name = "RefText"]`]
+		Abstract_Para : {
+			path1 : [`//abstract//p`],
+			path2 : [`//*[@class="jrnlAbsPara"]`]
+		}
 	},
 	{
-		Author : [`//contrib/name`,`./prefix` ,`./given-names` ,`./surname`]
+		Acknowledgement : {
+			path1 : [`//ack//p`]
+		}
 	},
 	{
-		Corres_Author : [`//author-notes/corresp/name`]
+		References : {
+			path1 : [`//ref[@data-class="jrnlRefText"]`],
+			path2 : [`//p[@class="jrnlRefText"]`],
+		}
 	},
 	{
-		Affiliation :[`//aff`]
+		Ethics : {
+			path1 : [`//fn[@fn-type="ethics"]`]
+		}
 	},
 	{
-		Figure_Caption : [`.//p[@class = "jrnlFigCaption"]`]
+		Patient_Consent : {
+			path1 : [`//fn[@fn-type="consent"]`]
+		}
 	},
 	{
-		Table_Caption : [`.//p[@class = "jrnlTblCaption"]`]
+		Conflict_of_interest : {
+			path1 : [`//fn[@fn-type="conflict"]`]
+		}
 	},
 	{
-		Figure_Citation : [`.//span[@class="jrnlFigRef"]`]
+		Data_Availability : {
+			path1 : [`//fn[@fn-type="data-availability-free-text"]`]
+		}
 	},
 	{
-		Table_Citation : [`.//span[@class="jrnlTblRef"]`]
+		Funding : {
+			path1 : [`//*[@fn-type="funding"]`]
+		}
 	},
-	/*{
-		//Corres_Affiliation : [`//author-notes/corresp/fn[@fn-type="corresp-address"]`]
-	},*/
 	{
-		Keywords : [`.//kwd-group`]
+		AuthorContribution : {
+			path1 : [`//fn[@fn-type="con"]`]
+		}
+	},
+	{
+		Keywords :{
+			path1 : [`//kwd-group`]
+		}
 	}
+	
+	
 ];
 
 const html_paths =[
 	{
-		Article_Title : [`//*[@data-class="jrnlArtTitle"]`],
+		Article_Title : {
+			path1 : [`//*[@data-class="jrnlArtTitle"]`]
+		},
 		Comparison : true
 	},
 	{
-		Abstract_Head : [`//*[@data-class="jrnlAbsHead"]`],
+		Author : {
+			path1 : [`//*[@data-class="jrnlAuthors"]`]
+		},
 		Comparison : true
 	},
 	{
-		Abstract_Title : [`//*[@data-class="jrnlAbsPara"]/b`],
+		Affiliation : {
+			path1 : [`//*[@data-class='jrnlAff']`]
+		},
 		Comparison : true
 	},
 	{
-		Abstract_Para : [`//*[@data-class='jrnlAbsPara']/text()`],
+		Corres_Author: {
+			path1 : [`//p[@data-class='jrnlCorrAuth']`],
+			path2 : [`//p[@data-class='jrnlCorresp']`]
+		},
 		Comparison : true
 	},
 	{
-		References : [`//*[@data-class="jrnlRefText"]`],
+		Abstract_Para : {
+			path1 : [`//*[@data-name='Abstract']`]
+		},
 		Comparison : true
 	},
 	{
-		Author : [`//p[@data-class='jrnlAuthors']`],
-		Comparison : true
-	},
-	{
-		Corres_Author :[`//p[@data-class="jrnlCorresp"]`],
-		Comparison : true
-	},
-	{
-		Affiliation : [`//p[@data-class='jrnlAff']`],
-		Comparison : true
-	},
-	{
-		Figure_Caption : [`.//p[@data-class="jrnlFigCaption"]`],
-		Comparison : true		
-	},
-	{
-		Table_Caption : [`.//p[@data-class="jrnlTblCaption"]`],
-		Comparison : true
-	},
-	{
-		Figure_Citation : [`.//span[@class="jrnlFigRef"]`],
+		Acknowledgement : {
+			path1 : [`//*[@data-class='jrnlAcknowledgement']`]
+		},
 		Comparison : false
 	},
 	{
-		Table_Citation : [`.//span[@class="jrnlTblRef"]`],
+		References : {
+			path1 : [`//*[@class="RefText jrnlRefText"]`]
+		},
+		Comparison : true
+	},
+	{
+		Ethics : {
+			path1 : [`//*[@data-class='jrnlEthics']`]
+		},
 		Comparison : false
 	},
 	{
-		Keywords : [`.//p[@data-name="keywords"]`],
+		Patient_Consent : {
+			path1 : [`//*[@data-class='jrnlPatientConsent']`]
+		},
+		Comparison : true
+	},
+	{
+		Conflict_of_interest : {
+			path1 : [`//*[@data-class='jrnlConflict']`]
+		},
+		Comparison : false
+	},
+	{
+		Data_Availability : {
+			path1 : [`//*[@data-class='jrnlDataAvailability']`]
+		},
+		Comparison : false
+	},
+	{
+		Funding : {
+			path1 : [`//*[@data-class='jrnlFunding']`]
+		},
+		Comparison : false
+	},
+	{
+		AuthorContribution : {
+			path1 : [`//*[@data-class='jrnlContributors']`]
+		},
+		Comparison : false
+	},
+	{
+		Keywords : {
+			path1 : [`//p[@data-tag='keywords']`],
+			path2 : [`//p[@data-name='keywords']`]
+		},
 		Comparison : true
 	}
-];
 
+	
+];
 module.exports = {xml_paths,html_paths}; 
